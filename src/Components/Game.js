@@ -15,8 +15,8 @@ class Game extends React.Component {
 
     handleClick(i) {
         const history = this.state.history.slice(0, this.state.stepNumber + 1); //cut history from all to current step
-        const current = history[history.length - 1]
-        const squares = current.squares.slice(); //cuts squares array from history array
+        const current = this.state.history[this.state.stepNumber] //current board state (1 array element)
+        const squares = current.squares.slice(); //cuts squares array (3x3) from current history array element
 
         if (!squares[i] && calculateWinner(squares) === null) {
             squares[i] = this.state.xIsNext ? 'X' : 'O'
@@ -43,7 +43,7 @@ class Game extends React.Component {
         const winner = calculateWinner(current.squares)
 
         //creates history list
-        const moves = history.map((step, move) => {
+        const moves = history.map((step, move) => { //step = current element of the array; move = index of the current element
             const desc = move ? 'Go to move #' + move : 'Go to game start';
             return (
                 <li key={move}>
